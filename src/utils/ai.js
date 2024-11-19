@@ -48,6 +48,9 @@ const parts = [
   },
   {
     text: "input: Tambahkan emoticon-emoticon sebagai pemanis."
+  },
+  {
+    text: "input: Hanya satu ucapan, dan langsung hasilnya saja."
   }
 ];
 

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabase";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/hooks/use-toast";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -15,6 +16,7 @@ import { Share2, Twitter, Link, MessageCircleMore } from "lucide-react";
 export default function Preview({ params }) {
   const { id } = params;
   const router = useRouter();
+  const { toast } = useToast();
   const [letter, setLetter] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -36,7 +38,7 @@ export default function Preview({ params }) {
   }, [id, router]);
 
   const shareToPlatform = async platform => {
-    const url = `http://localhost:3000/letter/${id}`;
+    const url = `https://dear-mom-xi.vercel.app/letter/${id}`;
 
     // Update is_preview to false in the database
     const { data, error } = await supabase
@@ -46,6 +48,10 @@ export default function Preview({ params }) {
 
     if (error) {
       alert("Error updating the letter preview status.");
+      toast({
+        title: "Something Wrong!",
+        description: "Error updating the letter preview status."
+      });
       return;
     }
 
@@ -56,7 +62,9 @@ export default function Preview({ params }) {
       window.open(`https://wa.me/?text=${url}`, "_blank");
     } else {
       navigator.clipboard.writeText(url);
-      alert("Link copied to clipboard!");
+      toast({
+        title: "Link copied to clipboard!"
+      });
     }
   };
 
