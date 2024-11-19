@@ -38,7 +38,7 @@ export default function Preview({ params }) {
   }, [id, router]);
 
   const shareToPlatform = async platform => {
-    const url = `https://dear-mom-xi.vercel.app/letter/${id}`;
+    const url = `https://dearmom.oortsky.blue/letter/${id}`;
 
     // Update is_preview to false in the database
     const { data, error } = await supabase
